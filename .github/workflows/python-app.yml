@@ -1,0 +1,32 @@
+# https://docs.github.com/ko/actions/automating-builds-and-tests/building-and-testing-python
+name: Application
+
+on: [ push, pull_request, workflow_dispatch ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12"
+    - name: Create Environment
+      run: |
+        python -m venv build
+        .\build\Scripts\Activate.ps1
+        pip install -r requirements.txt
+      shell: pwsh
+    # todo: .py to .exe https://www.pygame.org/docs/index.html
+    - name: Run pyinstaller
+      run: pyinstaller --onefile main_game_script.py
+      shell: pwsh
+    - uses: actions/upload-artifact@v4
+      with:
+       path: |
+         dist/*
+         requirements.txt
