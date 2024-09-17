@@ -18,14 +18,14 @@ jobs:
           cache: 'pip'
           cache-dependency-path: 'requirements.txt'
 
-      - name: Create Environment
+      - name: "Create Environment"
         run: |
           pip install -r requirements.txt
         shell: pwsh
 
-      - name: Run pyinstaller # .py to .exe
+      - name: "Run pyinstaller" # .py to .exe
         run: |
-          python -m pyinstaller --onefile pncTextGame0914.py
+          pyinstaller --onefile pncTextGame0914.py
         shell: pwsh
 
       - uses: actions/upload-artifact@v4
