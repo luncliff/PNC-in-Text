@@ -12,21 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
 
       - name: Create Environment
         run: |
-          python -m venv build
-          .\build\Scripts\Activate.ps1
           pip install -r requirements.txt
         shell: pwsh
 
       - name: Run pyinstaller # .py to .exe
         run: |
-          .\build\Scripts\Activate.ps1
-          python -m pyinstaller --onefile main_game_script.py
+          python -m pyinstaller --onefile pncTextGame0914.py
         shell: pwsh
 
       - uses: actions/upload-artifact@v4
