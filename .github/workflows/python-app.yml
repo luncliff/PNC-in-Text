@@ -33,3 +33,4 @@ jobs:
           path: |
             dist/*
             requirements.txt
+          retention-days: 7
